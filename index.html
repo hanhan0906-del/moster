@@ -5,7 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monster Survivors - Fight Endless Waves of Monsters</title>
     <meta name="description" content="Survive endless waves of monsters in this action-packed roguelike game. Upgrade your character, collect powerful items, and face increasingly difficult challenges.">
-    <link rel="canonical" href="https://monstersurvivors.com">
+    <link rel="canonical" href="https://www.mostersurvivorsaaa.uk">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BPLWHZKFNF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-BPLWHZKFNF');
+      
+      // 自定义事件追踪函数
+      function trackGameEvent(eventName, parameters = {}) {
+        gtag('event', eventName, parameters);
+      }
+      
+      // 页面加载完成事件
+      window.addEventListener('load', function() {
+        gtag('event', 'page_view', {
+          'page_title': 'Monster Survivors Game',
+          'page_location': window.location.href
+        });
+      });
+    </script>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -46,10 +69,10 @@
                 </div>
                 <nav>
                     <ul class="flex space-x-4">
-                        <li><a href="#game" class="hover:text-apple-yellow transition-colors">Play Now</a></li>
-                        <li><a href="#about" class="hover:text-apple-yellow transition-colors">About</a></li>
-                        <li><a href="#features" class="hover:text-apple-yellow transition-colors">Features</a></li>
-                        <li><a href="#controls" class="hover:text-apple-yellow transition-colors">Controls</a></li>
+                        <li><a href="#game" class="hover:text-apple-yellow transition-colors" onclick="trackGameEvent('nav_click', {'section': 'game'})">Play Now</a></li>
+                        <li><a href="#about" class="hover:text-apple-yellow transition-colors" onclick="trackGameEvent('nav_click', {'section': 'about'})">About</a></li>
+                        <li><a href="#features" class="hover:text-apple-yellow transition-colors" onclick="trackGameEvent('nav_click', {'section': 'features'})">Features</a></li>
+                        <li><a href="#controls" class="hover:text-apple-yellow transition-colors" onclick="trackGameEvent('nav_click', {'section': 'controls'})">Controls</a></li>
                     </ul>
                 </nav>
             </div>
@@ -63,7 +86,9 @@
                 <div class="game-container w-full h-screen max-h-[600px]">
                     <iframe src="https://cloud.onlinegames.io/games/2025/unity/monster-survivors/index-og.html" 
                             class="w-full h-full border-0" 
-                            allowfullscreen></iframe>
+                            allowfullscreen
+                            onload="trackGameStart()"
+                            id="gameFrame"></iframe>
                 </div>
             </div>
         </section>
@@ -130,6 +155,17 @@
                 </div>
             </div>
         </section>
+
+        <section id="contact" class="my-12">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-apple-blue">Contact & Support</h2>
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <p class="mb-4">Need help or have feedback about Monster Survivors? We'd love to hear from you!</p>
+                <div class="space-y-2">
+                    <p><span class="font-semibold">Website:</span> <a href="https://www.mostersurvivorsaaa.uk" class="text-apple-blue hover:underline">www.mostersurvivorsaaa.uk</a></p>
+                    <p><span class="font-semibold">For technical support or game feedback, please visit our website.</span></p>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="bg-apple-dark text-white p-6">
@@ -137,11 +173,11 @@
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-4 md:mb-0">
                     <p>&copy; 2025 Monster Survivors. All rights reserved.</p>
+                    <p class="text-sm text-apple-gray mt-1">www.mostersurvivorsaaa.uk</p>
                 </div>
                 <div class="flex space-x-4">
-                    <a href="#" class="hover:text-apple-blue transition-colors">Privacy Policy</a>
-                    <a href="#" class="hover:text-apple-blue transition-colors">Terms of Service</a>
-                    <a href="#" class="hover:text-apple-blue transition-colors">Contact</a>
+                    <a href="#contact" class="hover:text-apple-blue transition-colors" onclick="trackGameEvent('footer_click', {'link': 'contact'})">Contact</a>
+                    <a href="https://www.mostersurvivorsaaa.uk" class="hover:text-apple-blue transition-colors" onclick="trackGameEvent('footer_click', {'link': 'home'})">Home</a>
                 </div>
             </div>
         </div>
@@ -157,14 +193,139 @@
         "genre": ["Action", "Roguelike", "Survival"],
         "playMode": "SinglePlayer",
         "applicationCategory": "Game",
-        "url": "https://monstersurvivors.com",
+        "url": "https://www.mostersurvivorsaaa.uk",
         "offers": {
             "@type": "Offer",
             "price": "0",
             "priceCurrency": "USD",
             "availability": "https://schema.org/InStock"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Monster Survivors",
+            "url": "https://www.mostersurvivorsaaa.uk"
         }
     }
+    </script>
+
+    <!-- 额外的GA追踪功能 -->
+    <script>
+        // 游戏开始追踪
+        function trackGameStart() {
+            trackGameEvent('game_load', {
+                'game_name': 'Monster Survivors',
+                'device_type': window.innerWidth > 768 ? 'desktop' : 'mobile',
+                'user_agent': navigator.userAgent.includes('Mobile') ? 'mobile' : 'desktop'
+            });
+            
+            // 追踪用户在游戏页面的停留时间
+            startGameTimer();
+        }
+        
+        // 游戏时长追踪
+        let gameStartTime = null;
+        function startGameTimer() {
+            gameStartTime = Date.now();
+        }
+        
+        // 页面离开时追踪游戏时长
+        window.addEventListener('beforeunload', function() {
+            if (gameStartTime) {
+                const gameTime = Math.round((Date.now() - gameStartTime) / 1000 / 60); // 转换为分钟
+                if (gameTime > 0) {
+                    trackGameEvent('game_session_duration', {
+                        'game_name': 'Monster Survivors',
+                        'duration_minutes': gameTime,
+                        'session_quality': gameTime > 5 ? 'engaged' : 'quick'
+                    });
+                }
+            }
+        });
+        
+        // 滚动追踪 - 了解用户是否查看了完整页面
+        let maxScroll = 0;
+        let scrollTracked = {25: false, 50: false, 75: false, 90: false};
+        
+        window.addEventListener('scroll', function() {
+            const scrollPercent = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+            if (scrollPercent > maxScroll) {
+                maxScroll = scrollPercent;
+                
+                // 只追踪一次每个里程碑
+                if (scrollPercent >= 25 && !scrollTracked[25]) {
+                    trackGameEvent('scroll_depth', {'percent': 25});
+                    scrollTracked[25] = true;
+                } else if (scrollPercent >= 50 && !scrollTracked[50]) {
+                    trackGameEvent('scroll_depth', {'percent': 50});
+                    scrollTracked[50] = true;
+                } else if (scrollPercent >= 75 && !scrollTracked[75]) {
+                    trackGameEvent('scroll_depth', {'percent': 75});
+                    scrollTracked[75] = true;
+                } else if (scrollPercent >= 90 && !scrollTracked[90]) {
+                    trackGameEvent('scroll_depth', {'percent': 90});
+                    scrollTracked[90] = true;
+                }
+            }
+        });
+        
+        // 错误追踪
+        window.addEventListener('error', function(e) {
+            trackGameEvent('javascript_error', {
+                'error_message': e.message,
+                'error_filename': e.filename,
+                'error_line': e.lineno,
+                'user_agent': navigator.userAgent
+            });
+        });
+        
+        // 页面性能追踪
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if ('performance' in window) {
+                    const perfTiming = performance.timing;
+                    const pageLoadTime = perfTiming.loadEventEnd - perfTiming.navigationStart;
+                    
+                    if (pageLoadTime > 0) {
+                        trackGameEvent('page_performance', {
+                            'load_time_ms': pageLoadTime,
+                            'load_time_category': pageLoadTime < 3000 ? 'fast' : pageLoadTime < 7000 ? 'average' : 'slow'
+                        });
+                    }
+                }
+            }, 1000);
+        });
+        
+        // 检测用户设备信息
+        function getDeviceInfo() {
+            const ua = navigator.userAgent;
+            let deviceType = 'desktop';
+            let os = 'unknown';
+            
+            if (/Mobile|Android|iPhone|iPad/.test(ua)) {
+                deviceType = 'mobile';
+            } else if (/Tablet|iPad/.test(ua)) {
+                deviceType = 'tablet';
+            }
+            
+            if (/Windows/.test(ua)) os = 'windows';
+            else if (/Mac/.test(ua)) os = 'mac';
+            else if (/Android/.test(ua)) os = 'android';
+            else if (/iPhone|iPad/.test(ua)) os = 'ios';
+            else if (/Linux/.test(ua)) os = 'linux';
+            
+            return { deviceType, os };
+        }
+        
+        // 页面加载完成后发送设备信息
+        window.addEventListener('load', function() {
+            const deviceInfo = getDeviceInfo();
+            trackGameEvent('device_info', {
+                'device_type': deviceInfo.deviceType,
+                'operating_system': deviceInfo.os,
+                'screen_resolution': screen.width + 'x' + screen.height,
+                'viewport_size': window.innerWidth + 'x' + window.innerHeight
+            });
+        });
     </script>
 </body>
 </html>
